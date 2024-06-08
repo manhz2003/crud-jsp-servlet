@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+
+<!--    create-->
+    <servlet>
+        <servlet-name>SachAddServlet</servlet-name>
+        <servlet-class>servlet.SachAddServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SachAddServlet</servlet-name>
+        <url-pattern>/SachAddServlet</url-pattern>
+    </servlet-mapping>
+
+<!--    read-->
+    <servlet>
+        <servlet-name>SachServlet</servlet-name>
+        <servlet-class>servlet.SachServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SachServlet</servlet-name>
+        <url-pattern>/SachServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--    update-->
+    <servlet>
+        <servlet-name>SachEditServlet</servlet-name>
+        <servlet-class>servlet.SachEditServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SachEditServlet</servlet-name>
+        <url-pattern>/SachEditServlet</url-pattern>
+    </servlet-mapping>
+
+<!--    delete-->
+    <servlet>
+        <servlet-name>SachDeleteServlet</servlet-name>
+        <servlet-class>servlet.SachDeleteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SachDeleteServlet</servlet-name>
+        <url-pattern>/SachDeleteServlet</url-pattern>
+    </servlet-mapping>
+</web-app>
