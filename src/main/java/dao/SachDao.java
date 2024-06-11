@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SachDao {
+public class SachDao implements DaoInterface<SachModel> {
     public List<SachModel> getAll() {
         List<SachModel> sachList = new ArrayList<>();
         java.sql.Connection connection = Connection.getConnection();
@@ -56,7 +56,8 @@ public class SachDao {
         return sach;
     }
 
-    public void add(SachModel sach) {
+    @Override
+    public void save(SachModel sach) {
         java.sql.Connection connection = Connection.getConnection();
         try {
             PreparedStatement ps = connection.prepareStatement("INSERT INTO Sach (tenSach, giaBan, namXuatBan, moTa) VALUES (?, ?, ?, ?)");
@@ -72,6 +73,7 @@ public class SachDao {
         }
     }
 
+    @Override
     public void update(SachModel sach) {
         java.sql.Connection connection = Connection.getConnection();
         try {
@@ -100,5 +102,56 @@ public class SachDao {
         } finally {
             Connection.closeConnection(connection);
         }
+    }
+
+    @Override
+    public List<SachModel> searchByName(String name) {
+        List<SachModel> sachList = new ArrayList<>();
+        java.sql.Connection connection = Connection.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM Sach WHERE tenSach LIKE ?");
+            ps.setString(1, "%" + name + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                SachModel sach = new SachModel();
+                sach.setId(rs.getInt("id"));
+                sach.setTenSach(rs.getString("tenSach"));
+                sach.setGiaBan(rs.getDouble("giaBan"));
+                sach.setNamXuatBan(rs.getInt("namXuatBan"));
+                sach.setMoTa(rs.getString("moTa"));
+                sachList.add(sach);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            Connection.closeConnection(connection);
+        }
+        return sachList;
+    }
+
+    @Override
+    public List<SachModel> filterByPrice(double minPrice, double maxPrice) {
+        List<SachModel> sachList = new ArrayList<>();
+        java.sql.Connection connection = Connection.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM Sach WHERE giaBan BETWEEN ? AND ?");
+            ps.setDouble(1, minPrice);
+            ps.setDouble(2, maxPrice);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                SachModel sach = new SachModel();
+                sach.setId(rs.getInt("id"));
+                sach.setTenSach(rs.getString("tenSach"));
+                sach.setGiaBan(rs.getDouble("giaBan"));
+                sach.setNamXuatBan(rs.getInt("namXuatBan"));
+                sach.setMoTa(rs.getString("moTa"));
+                sachList.add(sach);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            Connection.closeConnection(connection);
+        }
+        return sachList;
     }
 }

@@ -8,10 +8,22 @@
   <title>Bảng sách</title>
 </head>
 <body>
+
 <h1>Dữ liệu bảng sách</h1>
+<%
+  String hoVaTen = (String) session.getAttribute("hoVaTen");
+%>
+<div style="display: flex"><p>Xin chào : <%= hoVaTen %> !</p> <p style="margin-left: 100px"><a href="LogoutServlet">Đăng xuất</a></p></div>
+<br>
 <% List<SachModel> sachList = (List<SachModel>) request.getAttribute("sachList");
   if (sachList != null && !sachList.isEmpty()) { %>
 <a href="SachAddServlet">Thêm sách</a>
+<br>
+<a href="./SearchSach.jsp">Tìm sách theo tên</a>
+<br>
+<a href="./FillSach.jsp">Lọc sách theo giá</a>
+<br>
+<br>
 <table border="1">
   <tr>
     <th>ID</th>

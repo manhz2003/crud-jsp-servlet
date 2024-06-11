@@ -5,6 +5,13 @@
     <title>CRUD JSP SERVLET</title>
 </head>
 <body>
+<%
+    String hoVaTen = (String) session.getAttribute("hoVaTen");
+    if (hoVaTen == null) {
+        response.sendRedirect("Login.jsp");
+        return;
+    }
+%>
 <h1><%= "Trang chủ" %></h1>
 <a href="SachServlet">quản lý sách</a>
 </body>
